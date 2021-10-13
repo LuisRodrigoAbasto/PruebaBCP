@@ -238,7 +238,7 @@ var General = General || (function ($) {
 
             $.ajaxSetup({
                 method: 'GET',
-                headers: General.Headers(),
+                //headers: General.Headers(),
                 error: function (jqXHR, textStatus, errorThrown) {
 
                     try {
@@ -308,14 +308,15 @@ var General = General || (function ($) {
         UrlApiNegocio: function (value) {
             //General.SetDatos(value, "urlApiNegocio");
             //return General.GetDatosJson().urlApiNegocio;
-            return "http://localhost:59617";
+            return "http://localhost:62832";
         },
         UrlBase: function (value) {
             //General.SetDatos(document.location.origin, "urlBase");
             //return document.location.origin;
-            General.SetDatos(value, "urlBase");
-            return General.GetDatosJson().urlBase;
+            //General.SetDatos(value, "urlBase");
+            //return General.GetDatosJson().urlBase;
             //return General.UrlBase();
+            return "";
         },
         ObjSelected: function (value) {
             General.SetDatos(value, "ObjSelected");

@@ -1,4 +1,4 @@
-﻿Page.RutaAPI = General.UrlApiNegocio() + "/Api/Palpacion";
+﻿Page.RutaAPI = General.UrlApiNegocio() + "/api/contrato";
 Page.IDNumerico = true;
 
 Page.Init = (() => {
@@ -178,7 +178,7 @@ Page.CargarGridBusqueda = (() => {
     let ClickKey;
     Page.grdBusqueda = $("#grdBusqueda").dxDataGrid({
         dataSource: Page.SetDataSourceDataGrid({
-            key: `palId`, url: `${Page.RutaAPI}/GetContrato`, data: function () {
+            key: `CodigoContrato`, url: `${Page.RutaAPI}/search`, data: function () {
                 return {
                     //id: Page.ddlBusId.option("value"),                    
                 };
@@ -215,21 +215,19 @@ Page.CargarGridBusqueda = (() => {
             visible: true,
         },
         selectedRowKeys: [],
-        columns: [{ dataField: "palId", caption: "ID", dataType: `number`, editorOptions: { placeholder: `ID`, showClearButton: true }, headerFilter: { allowSearch: true }, },
-        { dataField: "palFecha", caption: "Fecha", dataType: 'date', format: 'dd/MM/yyyy', editorOptions: { format: `dd/MM/yyyy`, placeholder: `Fecha`, showClearButton: true }, headerFilter: { allowSearch: true }, },
-        { dataField: "camNombre", caption: "Campo", dataType: `string`, editorOptions: { placeholder: `Campo`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+        columns: [
+            //{ dataField: "palId", caption: "ID", dataType: `number`, editorOptions: { placeholder: `ID`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            { dataField: "FechaInicial", caption: "Fecha Inicial", dataType: 'date', allowHeaderFiltering: false, format: 'dd/MM/yyyy', editorOptions: { format: `dd/MM/yyyy`, placeholder: `Fecha`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            { dataField: "FechaFinal", caption: "Fecha Final", dataType: 'date', allowHeaderFiltering: false, format: 'dd/MM/yyyy', editorOptions: { format: `dd/MM/yyyy`, placeholder: `Fecha`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+        { dataField: "cliente", caption: "Cliente", dataType: `string`, editorOptions: { placeholder: `Cliente`, showClearButton: true }, headerFilter: { allowSearch: true }, },
         //{ dataField: "empNombre", caption: "Empresa", dataType: `string`, editorOptions: { placeholder: `Empresa`, showClearButton: true }, headerFilter: { allowSearch: true }, },
-        { dataField: "palEstado", caption: "Estado", dataType: `string`, editorOptions: { placeholder: `Estado`, showClearButton: true }, headerFilter: { allowSearch: true } },
+        { dataField: "proveedor", caption: "Proveedor", dataType: `string`, editorOptions: { placeholder: `Proveedor`, showClearButton: true }, headerFilter: { allowSearch: true } },
         ],
         selection: {
             mode: "single"
         },
-        noDataText: "Sin Registros",
         onSelectionChanged: ((item) => {
-            Page.grdBusqueda_onSelectionChanged(item);
-            if (item.selectedRowKeys.length > 0) {
-                Page.LimpiarTodoGrid();
-            }
+            //Page.grdBusqueda_onSelectionChanged(item);            
         }),
         onRowClick: (e => {
             if (ClickKey == e.key) {

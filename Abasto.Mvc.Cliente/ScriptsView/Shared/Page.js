@@ -525,13 +525,11 @@
                 if (url && data) {
                     $.ajax({
                         url: url,
-                        headers: General.Headers(),
                         method: `GET`,
                         data: data,
                         dataType: `json`,
                         success: ((result) => {
-                            if (dataSource.length) result.Result = dataSource.concat(result.Result);
-                            d.resolve(result.Result);
+                            d.resolve(result.data);
                         }),
                         error: (() => {
                             d.reject(`Error al Cargar Datos`);
@@ -630,8 +628,8 @@
                         data: data,
                         dataType: `json`,
                         success: ((result) => {
-                            if (set.dataSource.length) result.Result.data = set.dataSource.concat(result.Result.data);
-                            d.resolve(result.Result);
+                            //if (set.dataSource.length) result.data.data = set.dataSource.concat(result.data.data);
+                            d.resolve(result.data);
                         }),
                         error: (() => {
                             d.reject(`Error al Cargar Datos`);
@@ -668,7 +666,8 @@
                             url: set.url,
                             method: `GET`,
                             data: data,
-                            headers: General.Headers(),
+                            //headers: General.Headers(),
+                            mode: 'cors',
                             dataType: `json`,
                             success: ((result) => {
                                 if (result.Result.data.length) d.resolve(result.Result.data[0]);
