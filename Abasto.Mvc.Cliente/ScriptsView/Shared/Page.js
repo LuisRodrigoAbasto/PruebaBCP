@@ -5,7 +5,6 @@
     IDNumerico: true,
     ObjId: null,
     ObjDescripcion: null,
-    PhoneMatchMedia: false,
     // No se modifica
     tabBusqueda: async function () {
         await Page.MostrarBotones(`B`);
@@ -30,7 +29,6 @@
         else if (tab == "tabDatosLi") tab = "D";
 
         await Page.MostrarBotones(tab);
-        //setTimeout(async function () { await privilegios.CargarPrivilegios() }, 5000);
     },
     LimpiarControlesDatos: function () {
     },
@@ -84,9 +82,9 @@
 
             let result = await Page.MetodoAjax(metodo, `${Page.RutaAPI}`, Page.data);
             Page.ModoForm = "M";
-            Page.data.codigo = result.Result;
+            Page.data.codigo = result.data;
             await Page.GuardarRegistroPage();
-            await Page.ObtenerDatos(result.Result);
+            await Page.ObtenerDatos(result.data);
             General.HidePleaseWait();
             let mensaje = result.Mensaje;
             if (!mensaje) mensaje = `Registro ${(metodo == 'PUT' ? 'Actualizado' : 'Guardado')} Correctamente`;
@@ -346,15 +344,12 @@
             $(`#datos`).dxValidationGroup({}).dxValidationGroup("instance").reset();
             let result = await Page.MetodoAjax("GET", `${Page.RutaAPI}/${id}`);
             if (result.Result) {
-                if (General.UsuarioTieneRolTxn("DATOS", result.Result.empId)) {
                     $("#hidRegistroSeleccionado").text(id);
-                    Page.data = result.Result;
+                    Page.data = result.data;
                     Page.ObjToForm();
                     Page.ModoForm = "M";
                     if (Page.GetTabActive() != "tabBuscarLi") await Page.MostrarBotones(`D`);
                     await Page.ObtenerSubTitulo();
-                }
-                else General.ShowAlert(`Estimado Usuario, Usted no se Encuentra Autorizado por la Empresa para ver este Registro`, "Informacion", 2);
             }
             else General.ShowAlert(`Registro no existe`, "Informacion", 2);
         }
@@ -410,22 +405,6 @@
             console.error(`Colocar Requerido en: ${nombre}`, e);
         }
     }),
-
-    FormatDateString: ((date) => {
-        try {
-            if (![null, ``, undefined].includes(date)) {
-                date = new Date(date).toJSON();
-            }
-            else {
-                date = null;
-            }
-        }
-        catch {
-            date = null;
-        }
-        return date;
-    }),
-
     FormatStringNumber: ((e) => {
         e = e.replaceAll(" ", "");
         let x = parseFloat(e);
@@ -464,129 +443,6 @@
         }
     },
     ////esto es para utilizar los ajax para cargar los datos
-    SetDataSourceAutocomplete: ((key, url, filtro, dataSource = []) => {
-        return new DevExpress.data.CustomStore({
-            key: key,
-            load: ((e) => {
-                let d = $.Deferred();
-                let data;
-                if (!filtro) {
-                    data = {};
-                }
-                else if (typeof filtro == `object`) {
-                    data = filtro;
-                }
-                else if (typeof filtro == `function`) {
-                    data = filtro();
-                }
-                if (url && data) {
-                    data.buscar = e.searchValue;
-                    $.ajax({
-                        url: `${url}`,
-                        headers: General.Headers(),
-                        method: `GET`,
-                        data: data,
-                        dataType: `json`,
-                        success: ((result) => {
-                            if (dataSource.length) result.Result = dataSource.concat(result.Result);
-                            d.resolve(result.Result);
-                        }),
-                        error: (() => {
-                            d.reject(`Error al Cargar Datos`);
-                        }),
-                    });
-                }
-                else {
-                    setTimeout(function () {
-                        d.resolve(dataSource);
-                    }, 500);
-                }
-                return d.promise();
-            }),
-        });
-    }),
-
-    SetDataSourceSelectBox: ((key, url, filtro, dataSource = []) => {
-        return new DevExpress.data.CustomStore({
-            loadMode: `raw`,
-            key: key,
-            load: (() => {
-                let d = $.Deferred();
-                let data;
-                if (!filtro) {
-                    data = {};
-                }
-                else if (typeof filtro == `object`) {
-                    data = filtro;
-                }
-                else if (typeof filtro == `function`) {
-                    data = filtro();
-                }
-                if (url && data) {
-                    $.ajax({
-                        url: url,
-                        method: `GET`,
-                        data: data,
-                        dataType: `json`,
-                        success: ((result) => {
-                            d.resolve(result.data);
-                        }),
-                        error: (() => {
-                            d.reject(`Error al Cargar Datos`);
-                        }),
-                    });
-                }
-                else {
-                    setTimeout(function () {
-                        d.resolve(dataSource);
-                    }, 500);
-                }
-                return d.promise();
-            }),
-        });
-    }),
-
-    SetDataSourceDropDownButton: ((key, url, filtro, dataSource = []) => {
-        return new DevExpress.data.CustomStore({
-            loadMode: `raw`,
-            key: key,
-            load: (() => {
-                let d = $.Deferred();
-                let data;
-                if (!filtro) {
-                    data = {};
-                }
-                else if (typeof filtro == `object`) {
-                    data = filtro;
-                }
-                else if (typeof filtro == `function`) {
-                    data = filtro();
-                }
-                if (url && data) {
-                    $.ajax({
-                        url: url,
-                        headers: General.Headers(),
-                        method: `GET`,
-                        data: data,
-                        dataType: `json`,
-                        success: ((result) => {
-                            d.resolve(result.Result);
-                        }),
-                        error: (() => {
-                            d.reject(`Error al Cargar Datos`);
-                        }),
-                    });
-                }
-                else {
-                    setTimeout(function () {
-                        d.resolve(dataSource);
-                    }, 1000);
-                }
-                return d.promise();
-            }),
-        });
-    }),
-
     SetDataCustomStore: ((set) => {
         if (!set.dataSource) set.dataSource = [];
         if (!set.key) set.key = "id";
@@ -703,36 +559,6 @@
     DescargarDocumento: ((url) => {
         window.location = `${url}`;
     }),
-
-    VerficarRolUsuario: async function (empresa = Page.data.empId, campo = Page.data.camId) {
-        if (empresa && campo) {
-            try {
-                let gerente = General.UsuarioTieneRolTxn("GE", empresa);
-                let encargado = General.UsuarioTieneRolTxn("EC", campo);
-                if (gerente || encargado) {
-                    if (!gerente) $(`#divBotonesTransacciones`).hide(500);
-                    if (!encargado) $(`#divBotonesDatos`).hide(500);
-                }
-                else {
-                    let result = await Page.MetodoAjax("GET", `${General.UrlApiNegocio()}/Api/Usuario/VerificarRolTxn`,
-                        { usuario: General.Usuario(), empId: empresa, camId: campo });
-                    if (!result.Result.gerente) {
-                        $(`#divBotonesTransacciones`).hide(500);
-                    }
-                    if (!result.Result.encargado) {
-                        $(`#divBotonesDatos`).hide(500);
-                    }
-                }
-            }
-            catch (e) {
-                General.Notify("Upps. Hubo Algun Problema al Verificar su Rol", "warning");
-                $(`#divBotonesTransacciones`).hide(500);
-            }
-        }
-        else {
-            $(`#divBotonesDatos`).show();
-        }
-    },
     //Clase para los botones en los formulario
     BotonOperacion: ((botones, operacion) => {
         let data = $(`${botones}`).children();
@@ -740,12 +566,8 @@
             let id = data[i].id;
             if (operacion == `ocultar`) {
                 $(`#${id}`).hide();
-            }
-            else if (operacion == `eliminar`) {
-                $(`#${id} > span:not(:first)`).remove();
-            }
+            }            
         }
-
         if (operacion == `ocultar`) {
             $(`${botones}`).hide();
         }
@@ -757,124 +579,12 @@
             Page.BotonOperacion(`#${data[i].id}`, operacion);
         }
     }),
-
-    BotonesOperacionTelefono: (() => {
-        let botones = `#divBotonesCel`;
-        $(`${botones}`).removeAttr('style');
-        $(`${botones}`).hide();
-        let data = $(`${botones}`).children();
-        for (let i = 0; i < data.length; i++) {
-            let btn = data[i].children;
-            for (let x = 0; x < btn.length; x++) {
-                $(`#${btn[x].id}`).hide();
-            }
-        }
-    }),
-
-    BotonesEliminarAdiccionarClase: ((operacion) => {
-        if (operacion) {
-            $("#pnlAcciones").addClass("form-group");
-            $("#pnlAcciones").removeClass("col-sm-4");
-        }
-        else {
-            $("#pnlAcciones").removeClass("form-group");
-            $("#pnlAcciones").addClass("col-sm-4");
-        }
-
-        let data = $(`#pnlAcciones`).children().children();
-        for (let i = 0; i < data.length; i++) {
-            if (operacion) {
-                $(`#${data[i].id} button`).addClass(`btn-default`);
-                $(`#${data[i].id} button`).removeClass(`boton-circle`);
-            }
-            else {
-                $(`#${data[i].id} button`).removeClass(`btn-default`);
-                $(`#${data[i].id} button`).addClass(`boton-circle`);
-            }
-        }
-
-        let tabContainer = $(`#tabContainer`).children();
-        for (let i = 0; i < tabContainer.length; i++) {
-            let ref = tabContainer[i].children[0].hash;
-            if (operacion) {
-                $(`${ref} > div.panel-group`).removeClass(`panel-group`);
-                $(`${ref} > div > div.panel-default`).removeClass(`panel panel-default`);
-                $(`${ref} > div > div > div.panel-body`).removeClass(`panel-body`);
-                if (ref == `#datos`) {
-                    $(`${ref} > div > div > div > div.panel-group`).removeClass(`panel-group`);
-                    //$(`${ref} > div > div > div > div > div.panel-default`).removeClass(`panel panel-default`);
-                    //$(`${ref} > div > div > div > div > div > div.panel-body`).removeClass(`panel-body`);
-                }
-            }
-            else {
-
-                $(`${ref} > div:first`).addClass(`panel-group`);
-                $(`${ref} > div > div:first`).addClass(`panel panel-default`);
-                $(`${ref} > div > div > div:first`).addClass(`panel-body`);
-                if (ref == `#datos`) {
-                    $(`${ref} > div > div > div >  div:first`).addClass(`panel-group`);
-                    $(`${ref} > div > div > div > div >  div:first`).addClass(`panel panel-default`);
-                    $(`${ref} > div > div > div > div > div >  div:first`).addClass(`panel-body`);
-                }
-            }
-        }
-    }),
-
-    TabCambiarPageCelAdelante: (() => {
-        let tabActive = $("ul#tabContainer li.active");
-        let tabNext = tabActive.next('', tabActive.attr('id')).attr('id');
-
-        if (tabNext != null) {
-            let tab = tabNext.substring(0, tabNext.length - 2);
-            Page.TabCambiarPage(`#${tab}`);
-        }
-    }),
-
-    TabCambiarPageCelAtras: (() => {
-        let tabActive = $("ul#tabContainer li.active");
-        let tabPrev = tabActive.prev('', tabActive.attr('id')).attr('id');
-
-        if (tabPrev != null) {
-            let tab = tabPrev.substring(0, tabPrev.length - 2);
-            Page.TabCambiarPage(`#${tab}`);
-        }
-    }),
-
-    tabBotonesAtraAdelante: (() => {
-
-        let tabActive = $("ul#tabContainer li.active");
-        let tabNext = tabActive.next('', tabActive.attr('id')).attr('id');
-        let tabPrev = tabActive.prev('', tabActive.attr('id')).attr('id');
-        if (tabNext != null && tabPrev != null) {
-
-            $("#celTabAdelante").text($(`#${tabNext}`).text().trim());
-            $("#celTabAtras").text($(`#${tabPrev}`).text().trim());
-
-            $("#btnCelTabAdelante").show(500);
-            $("#btnCelTabAtras").show(500);
-        }
-        else if (tabNext != null) {
-            $("#celTabAdelante").text($(`#${tabNext}`).text().trim());
-            $("#btnCelTabAdelante").show(500);
-        }
-        else if (tabPrev != null) {
-            $("#celTabAtras").text($(`#${tabPrev}`).text().trim());
-            $("#btnCelTabAtras").show(500);
-        }
-    }),
-
-    TextoParaBoton: ((selector, texto) => {
-        if ($(`${selector}> span:contains(${texto})`).length === 0) {
-            $(selector).append(`<span>${texto}</span>`);
-        }
-    }),
-    VerificarBotones: ((tab) => {
-
-    }),
-    VerificarSiEsTelefono: ((tab) => {
-
-    }),
     InitBotonesCRUD: (() => {
+        $("#btnNuevo").hide();
+        $("#btnGuardar").hide();
+        $("#btnCancelar").hide();
+        $("#btnEliminar").hide();
+
         $("#btnNuevo").dxButton({
             stylingMode: "contained",
             text: "Nuevo",
@@ -889,7 +599,7 @@
         });
         $("#btnGuardar").dxButton({
             stylingMode: "contained",
-            text: "Nuevo",
+            text: "Guardar",
             type: "success",
             //width: 120,
             onClick: function () {
@@ -944,7 +654,8 @@
             onClick: function () {
                 Page.Buscar();
             }
-        }); $("#btnLimpiar").dxButton({
+        });
+        $("#btnLimpiar").dxButton({
             stylingMode: "contained",
             text: "Limpiar",
             type: "success",
@@ -969,10 +680,7 @@
     }),
     MostrarBotones: (async (boton) => {
         ///B=Busqueda, D=Datos y Transacciones, N=Ninguno
-        Page.TodoBotonesOperacion(`ocultar`);
-
-        Page.BotonesOperacionTelefono();
-        Page.TodoBotonesOperacion(`eliminar`);
+        Page.TodoBotonesOperacion(`ocultar`);      
         $(document).ready(function () {
             let codigo = $("#hidRegistroSeleccionado").text();
             let tab = Page.GetTabActive();
@@ -982,122 +690,17 @@
                 $("#btnLimpiar").show();
             }
             else if (boton == "D") {
-                if ($(`#divBotonesDatos`).length) {
-
-                    if (!$("#divBotonesTransacciones").length) {
+                if ($(`#divBotonesDatos`).length) {                   
                         if ($("#divBotonesDatos").length) $("#divBotonesDatos").show();
                         if ($("#btnNuevo").length) $("#btnNuevo").show();
                         if ($("#btnGuardar").length) $("#btnGuardar").show();
                         if ($("#btnCancelar").length) $("#btnCancelar").show();
                         if (![`0`].includes(codigo)) {
                             if ($("#btnEliminar").length) $("#btnEliminar").show();
-                        }
-                        else if (tab != "tabDatosLi") {
-                            if ($("#divBotonesDatos").length) $("#divBotonesDatos").hide();
-                        }
-                    }
-                    else {
-                        let estado = Page.data.estado;
-                        if (tab == "tabDatosLi") {
-                            if ($("#btnNuevo").length) $("#btnNuevo").show();
-                        }
-                        if (["C", undefined, null, ``].includes(estado)) {
-                            if ($("#btnNuevo").length) $("#btnNuevo").show();
-                            if ($("#btnGuardar").length) $("#btnGuardar").show();
-                            if ($("#btnCancelar").length) $("#btnCancelar").show();
-                            if (estado == "C" && codigo > 0) {
-                                if ($("#btnEliminar").length) $("#btnEliminar").show();
-                                if ($("#btnEnviar").length) $("#btnEnviar").show();
-                            }
-                        }
-                        else {
-                            if (estado == "E") {
-                                if ($("#btnAprobar").length) $("#btnAprobar").show();
-                                if ($("#btnRechazar").length) $("#btnRechazar").show();
-                            }
-                            else if (estado == "A") {
-                                if ($("#btnAnular").length) $("#btnAnular").show();
-                            }
-                            $("#divBotonesTransacciones").show();
-                        }
-
-                        //$("#divBotonesTransacciones").show();
-                        if ([`0`].includes(codigo) && tab != "tabDatosLi") {
-                            //$("#divBotonesDatos").hide();
-                            $("#divBotonesTransacciones").hide();
-                        }
-                        else {
-                            $("#divBotonesDatos").show();
-                        }
-                    }
+                        }                                                                                    
                 }
             }
             Page.VerificarBotones(tab);
-
-            $("#pnlAcciones").css('height', '34px');
-            if (window.matchMedia('(max-width: 991px)').matches &&
-                window.matchMedia('(max-height: 991px)').matches) {
-                Page.PhoneMatchMedia = true;
-                Page.BotonesEliminarAdiccionarClase(true);
-
-                $("#divBotonesCel").css('display', 'flex');
-                $("#divBotonesCel").css('justify-content', 'space-between');
-                $("#divBotonesCel").show();
-                if (tab == "tabBuscarLi") {
-                    $("#btnCelBuscar").show();
-                    Page.TextoParaBoton("#btnBuscar", "Buscar");
-                    Page.TextoParaBoton("#btnLimpiar", "Limpiar");
-                }
-                else if (boton != "N") {
-                    if ($(`#divBotonesDatos`).length) {
-
-                        if ($("#btnNuevo").length) {
-                            if ($("#btnNuevo").is(":visible")) {
-                                $("#btnCelNuevo").show();
-                                Page.TextoParaBoton("#btnNuevo", "Nue.");
-                            }
-                        }
-                        if ($("#btnGuardar").length) {
-                            if ($("#btnGuardar").is(":visible")) {
-                                //Page.TextoParaBoton("#btnGuardar", "Gua.");
-                                $("#btnCelGuardar").show();
-                            }
-                        }
-                    }
-                    if ($(`#divBotonesTransacciones`).length) {
-
-                        if ($("#btnEnviar").length && codigo > 0) {
-                            if ($("#btnEnviar").is(":visible")) {
-                                Page.TextoParaBoton("#btnEnviar", "Enviar");
-                            }
-                        }
-                        if ($("#btnAprobar").length && codigo > 0) {
-                            if ($("#btnAprobar").is(":visible")) {
-                                Page.TextoParaBoton("#btnAprobar", "Aprobar");
-                            }
-                        }
-
-                        if ($("#btnAnular").length && codigo > 0) {
-                            if ($("#btnAnular").is(":visible")) {
-                                Page.TextoParaBoton("#btnAnular", "Anular");
-                            }
-                        }
-
-                        if ($("#btnRechazar").length && codigo > 0) {
-                            if ($("#btnRechazar").is(":visible")) {
-                                Page.TextoParaBoton("#btnRechazar", "Rechazar");
-                            }
-                        }
-                    }
-                }
-                Page.VerificarSiEsTelefono(tab);
-                Page.tabBotonesAtraAdelante();
-            }
-            else if (Page.PhoneMatchMedia) {
-                Page.PhoneMatchMedia = false;
-                Page.BotonesEliminarAdiccionarClase(false);
-            }
-
         });
     }),
     AnimacionPanel: ((div, tiempo) => {

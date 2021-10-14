@@ -16,21 +16,34 @@ namespace Operacion.LRAT.Api.Controllers
         // GET: api/Contrato
         [HttpGet]
         [Route("search")]
-        public async Task<dynamic> Search(string filtro="")
+        public async Task<dynamic> Search(DateTime? fecha,string representante,string proveedor,string ciudad,string cuenta,string filtro="")
         {
+            ciudad = string.IsNullOrEmpty(ciudad) ? "*" : ciudad.ToLower();
+            cuenta = string.IsNullOrEmpty(cuenta) ? "*" : cuenta.ToLower();
+            proveedor = string.IsNullOrEmpty(proveedor) ? "*" : proveedor.ToLower();
+            representante = string.IsNullOrEmpty(representante) ? "*" : representante.ToLower();
             using (Negocio cn = new Negocio())
             {
                 var lista = await (from x in cn.BCPContrado
+                                   where (x.FechaTenor == fecha || null == fecha)
+                                   && (x.Ciudad == ciudad || "*" == ciudad)
+                                   && (x.Cuenta == cuenta || "*" == cuenta)
                                    select new
                                    {
                                        x.CodigoContrato,
                                        x.Ciudad,
-                                       cliente = x.Nombres + " " + x.Paterno + " " + x.Materno,
+                                       representante = x.Nombres + " " + x.Paterno + " " + x.Materno,
                                        proveedor = x.NombresProveedor + " " + x.PaternoProveedor + " " + x.MaternoProveedor,
                                        x.FechaInicial,
                                        x.FechaFinal,
                                        x.Cuenta,
-                                   }).PaginateAsync(filtro);
+                                       x.Direccion,
+                                       x.Domicilio,
+                                       x.Importe,
+                                   }).Where(x =>
+                                   (proveedor == "*" ? true : x.proveedor.ToLower().Contains(proveedor)
+                                   && (representante == "*" ? true : x.representante.ToLower().Contains(representante))
+                                   )).PaginateAsync(filtro);
                 return ResponseOk(lista);
             }
         }

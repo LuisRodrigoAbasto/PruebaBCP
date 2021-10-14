@@ -6,15 +6,10 @@ Page.Init = (() => {
 
     $("#objNombre").html("Contrato");
     Page.InitBusqueda();
-    //Page.InitDatos();
-    //Page.ObjId = $("#ddlDatosCodigo").dxTextBox("instance");
-    //Page.ObjDescripcion = $("#ddlDatosNombre").dxSelectBox("instance");
-    //Page.RevisarVariables();
-    //PAGE COMMON------------------------------------------------------------------
-    ////////////////////////////
-
+    Page.InitDatos();
+    Page.ObjId = $("#ddlDatosId").dxTextBox("instance");
+    Page.ObjDescripcion = $("#ddlDatosNombre").dxTextBox("instance");
     Page.InitBotones();
-    //Page.AutoSelect('palId');
 });
 /*****************************************************************************************************************************************/
 /*****---------------------------------------------------- Seccion Busqueda   --------------------------------------------------------****/
@@ -74,51 +69,6 @@ Page.InitBusqueda = (() => {
         }]
     }).dxTextBox("instance");
 
-    Page.ddlBusDocumento = $("#ddlBusDocumento").dxTextBox({
-        tabIndex: tabIndex++,
-        placeholder: 'Documento',
-        showClearButton: true,
-        onEnterKey: ((e) => { Page.Buscar(); }),
-    }).dxValidator({
-        validationRules: [{
-            type: 'custom',
-            reevaluate: true,
-            validationCallback: ((e) => {
-                return true;
-            }),
-        }]
-    }).dxTextBox("instance");
-
-    Page.ddlBusDomicilio = $("#ddlBusDomicilio").dxTextBox({
-        tabIndex: tabIndex++,
-        placeholder: 'Domicilio',
-        showClearButton: true,
-        onEnterKey: ((e) => { Page.Buscar(); }),
-    }).dxValidator({
-        validationRules: [{
-            type: 'custom',
-            reevaluate: true,
-            validationCallback: ((e) => {
-                return true;
-            }),
-        }]
-    }).dxTextBox("instance");
-
-    Page.ddlBusDireccion = $("#ddlBusDireccion").dxTextBox({
-        tabIndex: tabIndex++,
-        showClearButton: true,
-        placeholder: 'ddlBusDireccion',
-        onEnterKey: ((e) => { Page.Buscar(); }),
-    }).dxValidator({
-        validationRules: [{
-            type: 'custom',
-            reevaluate: true,
-            validationCallback: ((e) => {
-                return true;
-            }),
-        }]
-    }).dxTextBox("instance");
-
     Page.ddlBusCiudad = $("#ddlBusCiudad").dxTextBox({
         tabIndex: tabIndex++,
         placeholder: 'Ciudad',
@@ -133,24 +83,6 @@ Page.InitBusqueda = (() => {
             }),
         }]
     }).dxTextBox("instance");
-
-    Page.ddlBusImporte = $("#ddlBusImporte").dxNumberBox({
-        tabIndex: tabIndex++,
-        min: 0,
-        step: 0,
-        mode: "number",
-        placeholder: 'Importe',
-        showClearButton: true,
-        onEnterKey: (e => { Page.Buscar(); }),
-    }).dxValidator({
-        validationRules: [{
-            type: 'custom',
-            reevaluate: true,
-            validationCallback: ((e) => {
-                return true;
-            }),
-        }]
-    }).dxNumberBox("instance");
 
     Page.ddlBusCuenta = $("#ddlBusCuenta").dxTextBox({
         tabIndex: tabIndex++,
@@ -180,7 +112,11 @@ Page.CargarGridBusqueda = (() => {
         dataSource: Page.SetDataSourceDataGrid({
             key: `CodigoContrato`, url: `${Page.RutaAPI}/search`, data: function () {
                 return {
-                    //id: Page.ddlBusId.option("value"),                    
+                    fecha: General.formatDate(Page.ddlBusFecha.option(`value`)),
+                    representante: Page.ddlBusRepresentante.option(`value`),
+                    proveedor: Page.ddlBusProveedor.option(`value`),
+                    ciudad: Page.ddlBusCiudad.option(`value`),
+                    cuenta: Page.ddlBusCuenta.option(`value`),
                 };
             }
         }),
@@ -219,24 +155,27 @@ Page.CargarGridBusqueda = (() => {
             //{ dataField: "palId", caption: "ID", dataType: `number`, editorOptions: { placeholder: `ID`, showClearButton: true }, headerFilter: { allowSearch: true }, },
             { dataField: "FechaInicial", caption: "Fecha Inicial", dataType: 'date', allowHeaderFiltering: false, format: 'dd/MM/yyyy', editorOptions: { format: `dd/MM/yyyy`, placeholder: `Fecha`, showClearButton: true }, headerFilter: { allowSearch: true }, },
             { dataField: "FechaFinal", caption: "Fecha Final", dataType: 'date', allowHeaderFiltering: false, format: 'dd/MM/yyyy', editorOptions: { format: `dd/MM/yyyy`, placeholder: `Fecha`, showClearButton: true }, headerFilter: { allowSearch: true }, },
-        { dataField: "cliente", caption: "Cliente", dataType: `string`, editorOptions: { placeholder: `Cliente`, showClearButton: true }, headerFilter: { allowSearch: true }, },
-        //{ dataField: "empNombre", caption: "Empresa", dataType: `string`, editorOptions: { placeholder: `Empresa`, showClearButton: true }, headerFilter: { allowSearch: true }, },
-        { dataField: "proveedor", caption: "Proveedor", dataType: `string`, editorOptions: { placeholder: `Proveedor`, showClearButton: true }, headerFilter: { allowSearch: true } },
+            { dataField: "representante", caption: "Representante", dataType: `string`, editorOptions: { placeholder: `Representante`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            { dataField: "Ciudad", caption: "Ciudad", dataType: `string`, editorOptions: { placeholder: `Ciudad`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            { dataField: "proveedor", caption: "Proveedor", dataType: `string`, editorOptions: { placeholder: `Proveedor`, showClearButton: true }, headerFilter: { allowSearch: true } },
+            { dataField: "Cuenta", caption: "Cuenta", dataType: `string`, editorOptions: { placeholder: `Cuenta`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            { dataField: "Direccion", caption: "Direccion", dataType: `string`, editorOptions: { placeholder: `Direccion`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            { dataField: "Domicilio", caption: "Domicilio", dataType: `string`, editorOptions: { placeholder: `Domicilio`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            //{ dataField: "DocumentoProveedor", caption: "Doc. Proveedor", dataType: `string`, editorOptions: { placeholder: `Doc. Proveedor`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            { dataField: "Importe", caption: "Importe", dataType: `number`, format: `#,##0.00`, editorOptions: { placeholder: `Importe`, showClearButton: true }, headerFilter: { allowSearch: true }, },
         ],
         selection: {
             mode: "single"
         },
         onSelectionChanged: ((item) => {
-            //Page.grdBusqueda_onSelectionChanged(item);            
+            Page.grdBusqueda_onSelectionChanged(item);
         }),
         onRowClick: (e => {
             if (ClickKey == e.key) {
                 Page.TabCambiarPage("#tabDatos");
                 ClickKey = null;
             }
-            else {
-                ClickKey = e.key;
-            }
+            else ClickKey = e.key;
         }),
     }).dxDataGrid("instance");
 });
@@ -244,17 +183,6 @@ Page.CargarGridBusqueda = (() => {
 /*****************************************************************************************************************************************/
 /*****---------------------------------------------------- Seccion Fin Busqueda ------------------------------------------------------****/
 /*****************************************************************************************************************************************/
-Page.LimpiarTodoGrid = (() => {
-    if (Page.grdDetalle) {
-        Page.grdDetalle.dispose();
-    }
-    if (Page.grdDetalleExcelError) {
-        Page.grdDetalleExcelError.dispose();
-    }
-    if (Page.grdLog) {
-        Page.grdLog.dispose();
-    }
-});
 
 /*****************************************************************************************************************************************/
 /*****---------------------------------------------------- Seccion Datos -------------------------------------------------------------****/
@@ -266,79 +194,278 @@ Page.InitDatos = (() => {
     Page.ddlDatosId = $("#ddlDatosId").dxTextBox({
         tabIndex: tabIndex++,
         value: 0,
-        placeholder: 'Codigo',
+        placeholder: 'Codigo Contrato',
         readOnly: true,
-        mode: "search",
     }).dxTextBox("instance");
 
-    Page.ddlDatosEmpresa = $("#ddlDatosEmpresa").dxSelectBox({
+    Page.ddlDatosNombre = $("#ddlDatosNombre").dxTextBox({
         tabIndex: tabIndex++,
-        placeholder: 'Seleccione una Empresa',
-        valueExpr: 'empId',
-        displayExpr: 'empNombre',
-        noDataText: "Sin Registros",
+        placeholder: 'Nombre',
         showClearButton: true,
-        searchEnabled: true,
-        mode: "search",
-        dataSource: Page.SetDataSourceSelectBox(`empId`, `${General.UrlApiNegocio()}/Api/Empresa/GetList`),
-        onValueChanged: ((e) => {
-            if (e.value && Page.EmpresaAnterior != e.value) {
-                Page.EmpresaAnterior = e.value;
-                let empId = e.value;
-                let campo = Page.SetDataSourceSelectBox(`camId`, `${General.UrlApiNegocio()}/Api/Campo/GetListFecha`, { empresa: empId });
-                Page.ddlDatosCampo.option(`dataSource`, campo);
-
-                let evaluacion = Page.SetDataSourceSelectBox(`evaId`, `${General.UrlApiNegocio()}/Api/Evaluacion/GetList`, { empresa: empId });
-                Page.ddlDetalleEvaluacion.option(`dataSource`, evaluacion);
-
-                let tropa = Page.SetDataSourceSelectBox(`troId`, `${General.UrlApiNegocio()}/Api/Tropa/GetList`, { empresa: empId });
-                Page.ddlDetalleTropaDestino.option(`dataSource`, tropa);
-            }
-        }),
+        maxLength: 30,
     }).dxValidator({
         validationRules: [{
             type: 'required',
-            message: 'Empresa es requerido'
         }]
-    }).dxSelectBox("instance");
+    }).dxTextBox("instance");
 
-    Page.ddlDatosCampo = $("#ddlDatosCampo").dxSelectBox({
+    Page.ddlDatosPaterno = $("#ddlDatosPaterno").dxTextBox({
         tabIndex: tabIndex++,
-        dataSource: Page.SetDataSourceSelectBox(`camId`),
-        placeholder: 'Seleccion un Campo',
-        valueExpr: 'camId',
-        displayExpr: 'camNombre',
-        noDataText: "Seleccione una Empresa",
+        placeholder: 'Paterno',
         showClearButton: true,
-        searchEnabled: true,
-        mode: "search",
-        onSelectionChanged: ((e) => {
-            let item = e.selectedItem;
-            if (item && [null, undefined, `C`].includes(Page.data.estado)) {
-                if (item.fecha) {
-                    let min = new Date(item.fecha.min).getTime() + Page.MiliSegundoEnDia;
-                    Page.ddlDatosFecha.option(`min`, min);
-                    Page.ddlDatosFecha.option(`max`, new Date(item.fecha.max).getTime());
-                }
-                else {
-                    General.Notify(`El Campo no tiene Inventario Inicial Aprobado`, 'warning');
-                }
-            }
-            else {
-                Page.ddlDatosFecha.option(`min`, null);
-                Page.ddlDatosFecha.option(`max`, null);
-            }
-        })
+        maxLength: 30,
     }).dxValidator({
         validationRules: [{
             type: 'required',
-            message: 'Campo es requerido'
         }]
-    }).dxSelectBox("instance");
+    }).dxTextBox("instance");
 
-    Page.ddlDatosFecha = $("#ddlDatosFecha").dxDateBox({
+    Page.ddlDatosMaterno = $("#ddlDatosMaterno").dxTextBox({
         tabIndex: tabIndex++,
-        placeholder: 'Fecha',
+        placeholder: 'Materno',
+        showClearButton: true,
+        maxLength: 30,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextBox("instance");
+
+    Page.ddlDatosTestimonio = $("#ddlDatosTestimonio").dxTextBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Testimonio',
+        showClearButton: true,
+        maxLength: 50,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextBox("instance");
+
+    Page.ddlDatosFechaInicial = $("#ddlDatosFechaInicial").dxDateBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Fecha Inicial',
+        type: "date",
+        displayFormat: "dd/MM/yyyy",
+        dateOutOfRangeMessage: "Fecha fuera de rango",
+        showClearButton: true,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxDateBox("instance");
+
+    Page.ddlDatosFechaFinal = $("#ddlDatosFechaFinal").dxDateBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Fecha Final',
+        type: "date",
+        displayFormat: "dd/MM/yyyy",
+        dateOutOfRangeMessage: "Fecha fuera de rango",
+        showClearButton: true,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxDateBox("instance");
+
+    Page.ddlDatosFechaTestimonio = $("#ddlDatosFechaTestimonio").dxDateBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Fecha Testimonio',
+        type: "date",
+        displayFormat: "dd/MM/yyyy",
+        dateOutOfRangeMessage: "Fecha fuera de rango",
+        showClearButton: true,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxDateBox("instance");
+
+    Page.ddlDatosNumeroNotaria = $("#ddlDatosNumeroNotaria").dxNumberBox({
+        format: "#,##0",
+        tabIndex: tabIndex++,
+        placeholder: 'Numero Notaria',
+        showClearButton: true,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxNumberBox(`instance`);
+
+    Page.ddlDatosNombreProveedor = $("#ddlDatosNombreProveedor").dxTextBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Nombre Proveedor',
+        showClearButton: true,
+        maxLength: 30,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextBox("instance");
+
+    Page.ddlDatosPaternoProveedor = $("#ddlDatosPaternoProveedor").dxTextBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Paterno Proveedor',
+        showClearButton: true,
+        maxLength: 30,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextBox("instance");
+
+    Page.ddlDatosMaternoProveedor = $("#ddlDatosMaternoProveedor").dxTextBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Materno Proveedor',
+        showClearButton: true,
+        maxLength: 30,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextBox("instance");
+
+    Page.ddlDatosDocumentoProveedor = $("#ddlDatosDocumentoProveedor").dxTextBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Documento Proveedor',
+        showClearButton: true,
+        maxLength: 20,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextBox("instance");
+
+    Page.ddlDatosDomicilio = $("#ddlDatosDomicilio").dxTextArea({
+        tabIndex: tabIndex++,
+        maxLength: 500,
+        placeholder: 'Domicilio',
+        showClearButton: true,
+        height: 100,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextArea("instance");
+
+    Page.ddlDatosDireccion = $("#ddlDatosDireccion").dxTextArea({
+        tabIndex: tabIndex++,
+        maxLength: 500,
+        placeholder: 'Direccion',
+        showClearButton: true,
+        height: 100,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextArea("instance");
+
+    Page.ddlDatosCiudad = $("#ddlDatosCiudad").dxTextBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Ciudad',
+        showClearButton: true,
+        maxLength: 30,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextBox("instance");
+
+    Page.ddlDatosSuperficie = $("#ddlDatosSuperficie").dxNumberBox({
+        format: "#,##0",
+        tabIndex: tabIndex++,
+        placeholder: 'Superficie',
+        showClearButton: true,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxNumberBox(`instance`);
+
+    Page.ddlDatosNumeroDireccion = $("#ddlDatosNumeroDireccion").dxTextBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Numero Direccion',
+        showClearButton: true,
+        maxLength: 30,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextBox("instance");
+
+    Page.ddlDatosImporte = $("#ddlDatosImporte").dxNumberBox({
+        format: "#,##0.00",
+        tabIndex: tabIndex++,
+        placeholder: 'Importe',
+        showClearButton: true,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxNumberBox(`instance`);
+
+    Page.ddlDatosLiteral = $("#ddlDatosLiteral").dxTextBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Literal',
+        showClearButton: true,
+        maxLength: 200,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextBox("instance");
+
+    Page.ddlDatosCuenta = $("#ddlDatosCuenta").dxTextBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Cuenta',
+        showClearButton: true,
+        maxLength: 20,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxTextBox("instance");
+
+    Page.ddlDatosNumeroMeses = $("#ddlDatosNumeroMeses").dxNumberBox({
+        format: "#,##0",
+        tabIndex: tabIndex++,
+        placeholder: 'Meses',
+        showClearButton: true,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxNumberBox(`instance`);
+
+    Page.ddlDatosFechaInicialArrendamiento = $("#ddlDatosFechaInicialArrendamiento").dxDateBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Fecha Inicial Arrendamiento',
+        type: "date",
+        displayFormat: "dd/MM/yyyy",
+        dateOutOfRangeMessage: "Fecha fuera de rango",
+        showClearButton: true,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxDateBox("instance");
+
+    Page.ddlDatosFechaFinalArrendamiento = $("#ddlDatosFechaFinalArrendamiento").dxDateBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Fecha Final Arrendamiento',
+        type: "date",
+        displayFormat: "dd/MM/yyyy",
+        dateOutOfRangeMessage: "Fecha fuera de rango",
+        showClearButton: true,
+    }).dxValidator({
+        validationRules: [{
+            type: 'required',
+        }]
+    }).dxDateBox("instance");
+
+    Page.ddlDatosFechaTenor = $("#ddlDatosFechaTenor").dxDateBox({
+        tabIndex: tabIndex++,
+        placeholder: 'Fecha Tenor',
         type: "date",
         displayFormat: "dd/MM/yyyy",
         dateOutOfRangeMessage: "Fecha fuera de rango",
@@ -350,70 +477,27 @@ Page.InitDatos = (() => {
         }]
     }).dxDateBox("instance");
 
-    Page.ddlDatosComentario = $("#ddlDatosComentario").dxTextArea({
+    Page.ddlDatosMes = $("#ddlDatosMes").dxTextBox({
         tabIndex: tabIndex++,
-        maxLength: 150,
-        placeholder: 'Comentario',
+        placeholder: 'Mes',
         showClearButton: true,
-        height: 100,
-    }).dxTextArea("instance");
-
-    Page.ddlDatosFechaCreacion = $("#ddlDatosFechaCreacion").dxDateBox({
-        tabIndex: tabIndex++,
-        placeholder: 'Fecha',
-        type: "datetime",
-        displayFormat: "dd/MM/yyyy hh:mm a",
-        value: new Date(),
-        readOnly: true,
+        maxLength: 30,
     }).dxValidator({
         validationRules: [{
             type: 'required',
-            message: 'Fecha es requerido'
         }]
-    }).dxDateBox("instance");
+    }).dxTextBox("instance");
 
-    Page.ddlDatosEstado = $("#ddlDatosEstado").dxSelectBox({
+    Page.ddlDatosAnio = $("#ddlDatosAnio").dxTextBox({
         tabIndex: tabIndex++,
-        dataSource: Page.SetDataSourceSelectBox(`value`, null, {}, [
-            { nombre: "Creado", value: "C" },
-            { nombre: "Enviado", value: "E" },
-            { nombre: "Aprobado", value: "A" },
-            { nombre: "Anulado", value: "X" },
-        ]),
-        value: "C",
-        placeholder: 'Estado',
-        valueExpr: 'value',
-        displayExpr: 'nombre',
-        searchEnabled: true,
-        readOnly: true,
-    }).dxSelectBox("instance");
-
-    $("#ddlDatosComentarioRechazadoMostrar").hide();
-    Page.ddlDatosComentarioRechazado = $("#ddlDatosComentarioRechazado").dxTextArea({
-        tabIndex: tabIndex++,
-        //maxLength: 150,
-        placeholder: 'Comentario Rechazado',
-        height: 100,
-        readOnly: true,
-    }).dxTextArea("instance");
-
-    //POPUP CONFIRMACION --------------------------------------------------------
-
-    $("#divModalConfirmarTxn").dxValidationGroup();
-
-    Page.ddlDatosComentarioRechazar = $("#ddlDatosComentarioRechazar").dxTextArea({
-        tabIndex: tabIndex++,
-        maxLength: 150,
-        placeholder: 'Comentario...',
+        placeholder: 'Año',
         showClearButton: true,
-        height: 100,
+        maxLength: 4,
     }).dxValidator({
         validationRules: [{
             type: 'required',
-            message: 'El comentario es requerido',
         }]
-    }).dxTextArea("instance");
-
+    }).dxTextBox("instance");
 });
 
 Page.FormToObj = (() => {
@@ -1371,160 +1455,9 @@ Page.LogCargarGridBusqueda = (() => {
 /*****************************************************************************************************************************************/
 /*****---------------------------------------------------- Seccion Botones------------------------------------------------------------****/
 /*****************************************************************************************************************************************/
-Page.InitBotonesCRUD = (() => {
-    $("#btnNuevo, #btnCelNuevo").click(function () {
-        let active = Page.GetTabActive();
-        if (active == "tabDatosLi") {
-            Page.NuevoRegistro();
-        }
-        else if (active == "tabDetalleLi") {
-            Page.grdDetalle.option(`selection.mode`, `single`);
-            Page.DetalleNuevo();
-        }
-
-    });
-
-    $("#btnGuardar, #btnCelGuardar").click(function () {
-        let active = Page.GetTabActive();
-        if (active == "tabDatosLi") {
-            Page.GuardarRegistro();
-        }
-        else if (active == "tabDetalleLi") {
-            Page.DetalleGuardar();
-        }
-
-    });
-
-    $("#btnCancelar").click(function () {
-        DevExpress.ui.dialog.confirm("¿Seguro que desea Cancelar?", "Cancelar").done(result => {
-            if (result) {
-                let active = Page.GetTabActive();
-                if (active == "tabDatosLi") {
-                    //Page.LimpiarControlesDatos();
-                    Page.CancelarRegistro();
-                }
-                else if (active == "tabDetalleLi") {
-                    Page.DetalleCancelar();
-                }
-            }
-        });
-    });
-
-    $("#btnEliminar").click(function () {
-        let active = Page.GetTabActive();
-
-        if (active == "tabDatosLi") {
-            DevExpress.ui.dialog.confirm("¿Seguro que desea eliminar?", "Eliminar").done(result => {
-                if (result) {
-                    Page.EliminarRegistro(false, true);
-                }
-            });
-        }
-        else if (active == "tabDetalleLi") {
-            let titulo = "Eliminar";
-            if (Page.ddlDetalleMultiple.option(`value`)) {
-                titulo = "Eliminar Multiple";
-            }
-            DevExpress.ui.dialog.confirm("¿Seguro que desea eliminar?", titulo).done(result => {
-                if (result) {
-                    Page.DetalleEliminar();
-                }
-            });
-        }
-    });
-
-    $("#btnEnviar").click(function () {
-        DevExpress.ui.dialog.confirm("¿Seguro que desea Enviar?", "Enviar").done(result => {
-            if (result) {
-                Page.data.estado = 'E';
-                Page.GuardarRegistro();
-            }
-        });
-    });
-
-    $("#btnAprobar").click(function () {
-        DevExpress.ui.dialog.confirm("¿Seguro que desea Aprobar?", "Aprobar").done(result => {
-            if (result) {
-                //let active = Page.GetTabActive();
-                Page.data.estado = 'A';
-                Page.GuardarRegistro();
-                //if (active == "tabDetalleLi") {
-                //    Page.TabDetalle();
-                //}
-            }
-        });
-    });
-
-    $("#btnRechazar, #btnAnular").attr("data-toggle", "modal");
-    $("#btnRechazar, #btnAnular").attr("data-target", "#divModalConfirmarTxn");
-    //$("#btnRechazarConfirmado").attr("data-dismiss", "modal");
-    $("#btnRechazar").click(function () {
-        Page.TryCatchResetValidator(`#ddlDatosComentarioRechazar`);
-        $(`#divModalTitulo`).text(`Rechazar`);
-        $(`#divModalEstado`).text(`Rechazar`);
-    });
-    $("#btnAnular").click(function () {
-        Page.TryCatchResetValidator(`#ddlDatosComentarioRechazar`);
-        $(`#divModalTitulo`).text(`Anular`);
-        $(`#divModalEstado`).text(`Anular`);
-    });
-    $("#btnConfirmadoTxn").click(function () {
-        if (!Page.ValidarDatosGuardar(`#divModalConfirmarTxn`, false)) {
-            return;
-        }
-        let titulo = $(`#divModalTitulo`).text();
-        DevExpress.ui.dialog.confirm(`¿Seguro que desea ${titulo}?`, titulo).done(result => {
-            $("#divModalConfirmarTxn").modal('hide');
-            if (result) {
-                if (Page.data.estado == `E`) {
-                    Page.data.estado = 'R';
-                }
-                else if ([`A`].includes(Page.data.estado)) {
-                    Page.data.estado = 'X';
-                }
-
-                let active = Page.GetTabActive();
-                if (active == "tabDetalleLi" && Page.data.estado == "R") {
-                    //Page.TabDetalle();
-                    $("#divDetalleData").hide();
-                    Page.CargarSetIniciarDetalle();
-                }
-                Page.GuardarRegistro();
-            }
-        });
-    });
-
-    $("#btnExcel").click(function () {
-        let active = Page.GetTabActive();
-        if (active == "tabDetalleLi") {
-            DevExpress.ui.dialog.confirm({ title: "Excel", showTitle: true, messageHtml: "Descargar Excel", buttons: [{ text: "Nuevo", onClick: function () { return true; } }, { text: "Detalle", onClick: function () { return false; } }] }).done(result => {
-                General.Notify("Descargando Excel.....");
-                if (result) {
-                    let url = `${General.UrlApiNegocio()}/Archivos/MiCampoPalpacion.xlsx`;
-                    Page.DescargarDocumento(url);
-                }
-                else {
-                    Page.grdDetalle.exportToExcel()
-                }
-            });
-        }
-    });
-    $(`#tabDetalle`).click(function () {
-        Page.TabDetalle();
-    });
-
-    $(`#tabLog`).click(function () {
-        Page.TabLog();
-    });
-});
 
 Page.VerificarBotones = (tabActive => {
 
-    let codigo = Page.data.codigo;
-    if ([`tabDetalleLi`, `tabDatosLi`].includes(tabActive) && codigo) {
-        if (tabActive == "tabDetalleLi") $("#btnExcel").show();
-        Page.VerficarRolUsuario();
-    }
 });
 
 Page.GuardarRegistroPageFail = (() => {

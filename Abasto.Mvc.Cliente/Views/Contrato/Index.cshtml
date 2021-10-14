@@ -67,41 +67,14 @@
                                 </div>
 
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label >Documento Proveedor</label>
-                                        <div id="ddlBusDocumento"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Domicilio</label>
-                                        <div id="ddlBusDomicilio"></div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Direccion</label>
-                                        <div id="ddlBusDireccion"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label >Ciudad</label>
                                         <div id="ddlBusCiudad"></div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Importe</label>
-                                        <div id="ddlBusImporte"></div>
-                                    </div>
-                                </div>
-
+                                </div>                               
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Cuenta</label>
@@ -132,70 +105,198 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="ddlDatosEmpresa">Empresa</label>
-                                                    <div id="ddlDatosEmpresa"></div>
+                                                    <label>Buscar Representante</label>
+                                                    <div id="ddlDatosBuscar"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="ddlDatosId">Código</label>
+                                                    <label for="ddlDatosId">Código Contrato</label>
                                                     <div id="ddlDatosId"></div>
 
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="ddlDatosCampo">Campo</label>
-                                                    <div id="ddlDatosCampo"></div>
+                                                    <label>Nombre</label>
+                                                    <div id="ddlDatosNombre"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="ddlDatosFechaCreacion">Fecha Txn</label>
-                                                    <div id="ddlDatosFechaCreacion"></div>
+                                                    <label>Paterno</label>
+                                                    <div id="ddlDatosPaterno"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Materno</label>
+                                                    <div id="ddlDatosMaterno"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="ddlDatosFecha">Fecha</label>
-                                                    <div id="ddlDatosFecha"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="ddlDatosEstado">Estado</label>
-                                                    <div id="ddlDatosEstado"></div>
+                                                    <label>Testimonio</label>
+                                                    <div id="ddlDatosTestimonio"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="ddlDatosComentario">Comentario</label>
-                                                            <div id="ddlDatosComentario"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-6" id="ddlDatosComentarioRechazadoMostrar">
                                                 <div class="form-group">
-                                                    <label for="ddlDatosComentarioRechazado">
-                                                        Comentario
-                                                        <span id="ddlDatosComentarioEstado">Rechazado</span>
-                                                    </label>
-                                                    <div id="ddlDatosComentarioRechazado"></div>
+                                                    <label>Fecha Inicial</label>
+                                                    <div id="ddlDatosFechaInicial"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Fecha Final</label>
+                                                    <div id="ddlDatosFechaFinal"></div>
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Fecha Testimonio</label>
+                                                    <div id="ddlDatosFechaTestimonio"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>N. Notaria</label>
+                                                    <div id="ddlDatosNumeroNotaria"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Nombre Proveedor</label>
+                                                    <div id="ddlDatosNombreProveedor"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Paterno Proveedor</label>
+                                                    <div id="ddlDatosPaternoProveedor"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Materno Proveedor</label>
+                                                    <div id="ddlDatosMaternoProveedor"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Documento Proveedor</label>
+                                                    <div id="ddlDatosDocumentoProveedor"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Domicilio</label>
+                                                    <div id="ddlDatosDomicilio"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Direccion</label>
+                                                    <div id="ddlDatosDireccion"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Ciudad</label>
+                                                    <div id="ddlDatosCiudad"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Superficie</label>
+                                                    <div id="ddlDatosSuperficie"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Nº Direccion</label>
+                                                    <div id="ddlDatosNumeroDireccion"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Importe</label>
+                                                    <div id="ddlDatosImporte"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Literal</label>
+                                                    <div id="ddlDatosLiteral"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Cuenta</label>
+                                                    <div id="ddlDatosCuenta"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Meses</label>
+                                                    <div id="ddlDatosNumeroMeses"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Fecha Inicial</label>
+                                                    <div id="ddlDatosFechaInicialArrendamiento"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Fecha Final</label>
+                                                    <div id="ddlDatosFechaFinalArrendamiento"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Fecha Tenor</label>
+                                                    <div id="ddlDatosFechaTenor"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Mes</label>
+                                                    <div id="ddlDatosMes"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Año</label>
+                                                    <div id="ddlDatosAnio"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
