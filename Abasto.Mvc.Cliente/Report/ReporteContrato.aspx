@@ -17,7 +17,7 @@
 <body>
     <form id="form1" runat="server">
         <div id="div1">
-            <%--<asp:ScriptManager ID="smMain" runat="server" EnablePartialRendering="true"></asp:ScriptManager>--%>
+            <asp:ScriptManager ID="smMain" runat="server" EnablePartialRendering="true"></asp:ScriptManager>
             <rsweb:ReportViewer ID="rvMain" runat="server" Height="100%" Width="100%">
                 <LocalReport ReportPath="Report\Files\LRATContrato.rdlc">
                     <DataSources>

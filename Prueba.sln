@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abasto.Mvc.Cliente", "Abasto.Mvc.Cliente\Abasto.Mvc.Cliente.csproj", "{4ECF651F-FDBB-44AB-B806-465311C8422A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abasto.Negocio", "Abasto.Negocio\Abasto.Negocio.csproj", "{EFE3B4B4-9AC1-4CBC-8745-31B12F67B2E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abasto.Libreria", "Abasto.Libreria\Abasto.Libreria.csproj", "{AD97E182-D95E-421A-8537-BC06FD05E62C}"
@@ -13,6 +11,8 @@ Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "Abasto.Reportes", "Abasto.R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operacion.LRAT.Api", "Operacion.LRAT.Api\Operacion.LRAT.Api.csproj", "{BAF908E1-5A93-4B26-AEB5-CF973C1905D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abasto.Mvc.Cliente", "Abasto.Mvc.Cliente\Abasto.Mvc.Cliente.csproj", "{4ECF651F-FDBB-44AB-B806-465311C8422A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,12 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4ECF651F-FDBB-44AB-B806-465311C8422A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4ECF651F-FDBB-44AB-B806-465311C8422A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4ECF651F-FDBB-44AB-B806-465311C8422A}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
-		{4ECF651F-FDBB-44AB-B806-465311C8422A}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
-		{4ECF651F-FDBB-44AB-B806-465311C8422A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4ECF651F-FDBB-44AB-B806-465311C8422A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EFE3B4B4-9AC1-4CBC-8745-31B12F67B2E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFE3B4B4-9AC1-4CBC-8745-31B12F67B2E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFE3B4B4-9AC1-4CBC-8745-31B12F67B2E9}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
@@ -52,6 +46,12 @@ Global
 		{BAF908E1-5A93-4B26-AEB5-CF973C1905D9}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{BAF908E1-5A93-4B26-AEB5-CF973C1905D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAF908E1-5A93-4B26-AEB5-CF973C1905D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ECF651F-FDBB-44AB-B806-465311C8422A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ECF651F-FDBB-44AB-B806-465311C8422A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ECF651F-FDBB-44AB-B806-465311C8422A}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ECF651F-FDBB-44AB-B806-465311C8422A}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{4ECF651F-FDBB-44AB-B806-465311C8422A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ECF651F-FDBB-44AB-B806-465311C8422A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
