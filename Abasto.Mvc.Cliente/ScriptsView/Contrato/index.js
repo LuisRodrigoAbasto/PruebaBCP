@@ -626,35 +626,10 @@ Page.ObjToForm = (() => {
 });
 
 Page.LimpiarControlesDatos = (() => {
-    Page.ControlesDatosResetValidator();
+    Page.ddlDatos.reset();
     Page.ddlDatosId.option("value", "0");
    
 });
-
-Page.ControlesDatosResetValidator = (() => {
-    let data = [
-        { nombre: "ddlDatosEmpresa" },
-        { nombre: "ddlDatosCampo" },
-        { nombre: "ddlDatosFecha" },
-        //{ nombre: "ddlDatosComentario" },
-        //{ nombre: "ddlDatosComentarioRechazar" },
-    ];
-    data.forEach(e => {
-        Page.TryCatchResetValidator(`#${e.nombre}`);
-    });
-});
-
-Page.SetDataReadOnly = (() => {
-    let readOnly = false;
-    if (!["C", undefined].includes(Page.data.estado)) {
-        readOnly = true;
-    }
-    Page.ddlDatosEmpresa.option("readOnly", readOnly);
-    Page.ddlDatosCampo.option("readOnly", readOnly);
-    Page.ddlDatosFecha.option("readOnly", readOnly);
-    Page.ddlDatosComentario.option("readOnly", readOnly);
-});
-
 /*****************************************************************************************************************************************/
 /*****---------------------------------------------------- Seccion Fin Datos  --------------------------------------------------------****/
 /*****************************************************************************************************************************************/
