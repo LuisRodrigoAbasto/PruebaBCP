@@ -10,6 +10,8 @@ namespace Abasto.Negocio
     public partial class BCPContrado
     {
         [Key]
+        public long Id { get; set; }
+
         [StringLength(10)]
         public string CodigoContrato { get; set; }
 
@@ -26,15 +28,15 @@ namespace Abasto.Negocio
         public string Testimonio { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? FechaInicial { get; set; }
+        public DateTime FechaInicial { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? FechaFinal { get; set; }
+        public DateTime FechaFinal { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? FechaTestimonio { get; set; }
+        public DateTime FechaTestimonio { get; set; }
 
-        public int? NumeroNotaria { get; set; }
+        public int NumeroNotaria { get; set; }
 
         [StringLength(30)]
         public string PaternoProveedor { get; set; }
@@ -57,12 +59,12 @@ namespace Abasto.Negocio
         [StringLength(30)]
         public string Ciudad { get; set; }
 
-        public int? Superficie { get; set; }
+        public int Superficie { get; set; }
 
         [StringLength(10)]
         public string NumeroDireccion { get; set; }
 
-        public decimal? Importe { get; set; }
+        public decimal Importe { get; set; }
 
         [StringLength(200)]
         public string Literal { get; set; }
@@ -70,16 +72,16 @@ namespace Abasto.Negocio
         [StringLength(20)]
         public string Cuenta { get; set; }
 
-        public int? NumeroMeses { get; set; }
+        public int NumeroMeses { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? FechaInicialArrendamiento { get; set; }
+        public DateTime FechaInicialArrendamiento { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? FechaFinalArrendamiento { get; set; }
+        public DateTime FechaFinalArrendamiento { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? FechaTenor { get; set; }
+        public DateTime FechaTenor { get; set; }
 
         [StringLength(30)]
         public string Mes { get; set; }

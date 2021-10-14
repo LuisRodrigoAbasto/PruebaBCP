@@ -110,7 +110,7 @@ Page.CargarGridBusqueda = (() => {
     let ClickKey;
     Page.grdBusqueda = $("#grdBusqueda").dxDataGrid({
         dataSource: Page.SetDataSourceDataGrid({
-            key: `CodigoContrato`, url: `${Page.RutaAPI}/search`, data: function () {
+            key: `Id`, url: `${Page.RutaAPI}/search`, data: function () {
                 return {
                     fecha: General.formatDate(Page.ddlBusFecha.option(`value`)),
                     representante: Page.ddlBusRepresentante.option(`value`),
@@ -152,9 +152,9 @@ Page.CargarGridBusqueda = (() => {
         },
         selectedRowKeys: [],
         columns: [
-            //{ dataField: "palId", caption: "ID", dataType: `number`, editorOptions: { placeholder: `ID`, showClearButton: true }, headerFilter: { allowSearch: true }, },
-            { dataField: "FechaInicial", caption: "Fecha Inicial", dataType: 'date', allowHeaderFiltering: false, format: 'dd/MM/yyyy', editorOptions: { format: `dd/MM/yyyy`, placeholder: `Fecha`, showClearButton: true }, headerFilter: { allowSearch: true }, },
-            { dataField: "FechaFinal", caption: "Fecha Final", dataType: 'date', allowHeaderFiltering: false, format: 'dd/MM/yyyy', editorOptions: { format: `dd/MM/yyyy`, placeholder: `Fecha`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            { dataField: "CodigoContrato", caption: "Codigo", dataType: `string`, editorOptions: { placeholder: `Codigo`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            { dataField: "FechaInicial", caption: "Fecha Inicial", dataType: 'date', allowHeaderFiltering: true, format: 'dd/MM/yyyy', editorOptions: { format: `dd/MM/yyyy`, placeholder: `Fecha`, showClearButton: true }, headerFilter: { allowSearch: true }, },
+            { dataField: "FechaFinal", caption: "Fecha Final", dataType: 'date', allowHeaderFiltering: true, format: 'dd/MM/yyyy', editorOptions: { format: `dd/MM/yyyy`, placeholder: `Fecha`, showClearButton: true }, headerFilter: { allowSearch: true }, },
             { dataField: "representante", caption: "Representante", dataType: `string`, editorOptions: { placeholder: `Representante`, showClearButton: true }, headerFilter: { allowSearch: true }, },
             { dataField: "Ciudad", caption: "Ciudad", dataType: `string`, editorOptions: { placeholder: `Ciudad`, showClearButton: true }, headerFilter: { allowSearch: true }, },
             { dataField: "proveedor", caption: "Proveedor", dataType: `string`, editorOptions: { placeholder: `Proveedor`, showClearButton: true }, headerFilter: { allowSearch: true } },
@@ -514,45 +514,43 @@ Page.FormToObj = (() => {
 });
 
 Page.ObjToForm = (() => {
-    Page.CargarPredeterminado = false;
-    $("#ddlDatosComentarioRechazadoMostrar").hide();
 
-    Page.data.codigo = Page.data.palId;
-    Page.data.estado = Page.data.palEstado;
+    Page.data.codigo = Page.data.Id;
     //CONTROLES DATOS--------------------------------------------------------------------
-    Page.ObjId.option('value', Page.data.palId);
-    Page.ddlDatosId.option("value", Page.data.palId);
-    Page.ddlDatosEmpresa.option("value", Page.data.empId);
-    Page.ddlDatosCampo.option("value", Page.data.camId);
-    Page.ddlDatosFechaCreacion.option("value", Page.data.palFechaCreacion);
-    Page.ddlDatosFecha.option("value", Page.data.palFecha);
-    Page.ddlDatosEstado.option("value", Page.data.palEstado);
-    Page.ddlDatosComentario.option("value", Page.data.palComentario);
-
-    if ([`C`, `X`].includes(Page.data.estado) && Page.data.logComentario) {
-        Page.ddlDatosComentarioRechazado.option(`value`, Page.data.logComentario);
-        let estado = Page.data.estado == `C` ? `Rechazado` : `Anulado`;
-        $("#ddlDatosComentarioEstado").text(`${estado}`);
-        $("#ddlDatosComentarioRechazadoMostrar").show();
-    }
-    Page.SetDataReadOnly();
-    Page.SetDetalleReadOnly();
-    Page.CargarPredeterminado = true;
+    Page.ObjId.option('value', Page.data.Id);
+    Page.ddlDatosId.option("value", Page.data.Id);
+    Page.ddlDatosMaterno.option(`value`, Page.data.Materno);
+    Page.ddlDatosPaterno.option(`value`, Page.data.Paterno);
+    Page.ddlDatosNombre.option(`value`, Page.data.Nombres);
+    Page.ddlDatosTestimonio.option(`value`, Page.data.Testimonio);
+    Page.ddlDatosFechaInicial.option(`value`, Page.data.FechaInicial);
+    Page.ddlDatosFechaFinal.option(`value`, Page.data.FechaFinal);
+    Page.ddlDatosFechaTestimonio.option(`value`, Page.data.FechaTestimonio);
+    Page.ddlDatosNumeroNotaria.option(`value`, Page.data.NumeroNotaria);
+    Page.ddlDatosPaternoProveedor.option(`value`, Page.data.PaternoProveedor);
+    Page.ddlDatosMaternoProveedor.option(`value`, Page.data.MaternoProveedor);
+    Page.ddlDatosNombreProveedor.option(`value`, Page.data.NombresProveedor);
+    Page.ddlDatosDocumentoProveedor.option(`value`, Page.data.DocumentoProveedor);
+    Page.ddlDatosDomicilio.option(`value`, Page.data.Domicilio);
+    Page.ddlDatosDireccion.option(`value`, Page.data.Direccion);
+    Page.ddlDatosCiudad.option(`value`, Page.data.Ciudad);
+    Page.ddlDatosSuperficie.option(`value`, Page.data.Superficie);
+    Page.ddlDatosNumeroDireccion.option(`value`, Page.data.NumeroDireccion);
+    Page.ddlDatosImporte.option(`value`, Page.data.Importe);
+    Page.ddlDatosLiteral.option(`value`, Page.data.Literal);
+    Page.ddlDatosCuenta.option(`value`, Page.data.Cuenta);
+    Page.ddlDatosNumeroMeses.option(`value`, Page.data.NumeroMeses);
+    Page.ddlDatosFechaInicialArrendamiento.option(`value`, Page.data.FechaInicialArrendamiento);
+    Page.ddlDatosFechaFinalArrendamiento.option(`value`, Page.data.FechaFinalArrendamiento);
+    Page.ddlDatosFechaTenor.option(`value`, Page.data.FechaTenor);
+    Page.ddlDatosMes.option(`value`, Page.data.Mes);
+    Page.ddlDatosAnio.option(`value`, Page.data.Anio);
 });
 
 Page.LimpiarControlesDatos = (() => {
-    Page.CargarPredeterminado = false;
-    $("#ddlDatosComentarioRechazadoMostrar").hide();
     Page.ControlesDatosResetValidator();
     Page.ddlDatosId.option("value", "0");
-    Page.ddlDatosEstado.option("value", "C");
-    Page.ddlDatosFechaCreacion.option(`value`, new Date());
-    Page.ddlDatosComentario.reset();
-    Page.ddlDatosComentarioRechazado.reset();
-    Page.ddlDatosEmpresa.focus();
-    Page.SetDataReadOnly();
-    Page.LimpiarTodoGrid();
-    Page.CargarPredeterminado = true;
+   
 });
 
 Page.ControlesDatosResetValidator = (() => {

@@ -30,6 +30,7 @@ namespace Operacion.LRAT.Api.Controllers
                                    && (x.Cuenta == cuenta || "*" == cuenta)
                                    select new
                                    {
+                                       x.Id,
                                        x.CodigoContrato,
                                        x.Ciudad,
                                        representante = x.Nombres + " " + x.Paterno + " " + x.Materno,
@@ -51,11 +52,11 @@ namespace Operacion.LRAT.Api.Controllers
         // GET: api/Contrato/5
         [HttpGet]
         [Route("{id}")]
-        public dynamic Get(string id)
+        public dynamic Get(long id)
         {
             using (Negocio cn=new Negocio())
             {
-                var obj = cn.BCPContrado.Where(x => x.CodigoContrato == id).FirstOrDefault();
+                var obj = cn.BCPContrado.Where(x => x.Id == id).FirstOrDefault();
                 return ResponseOk(obj);
             }
         }

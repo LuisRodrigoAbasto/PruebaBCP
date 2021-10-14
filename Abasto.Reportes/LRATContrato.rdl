@@ -96,7 +96,7 @@
   </ReportSections>
   <ReportParameters>
     <ReportParameter Name="codigo">
-      <DataType>String</DataType>
+      <DataType>Integer</DataType>
       <Prompt>codigo</Prompt>
     </ReportParameter>
   </ReportParameters>

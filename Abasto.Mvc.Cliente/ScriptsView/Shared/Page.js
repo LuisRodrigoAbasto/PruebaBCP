@@ -343,7 +343,7 @@
         try {
             $(`#datos`).dxValidationGroup({}).dxValidationGroup("instance").reset();
             let result = await Page.MetodoAjax("GET", `${Page.RutaAPI}/${id}`);
-            if (result.Result) {
+            if (result.data) {
                     $("#hidRegistroSeleccionado").text(id);
                     Page.data = result.data;
                     Page.ObjToForm();
