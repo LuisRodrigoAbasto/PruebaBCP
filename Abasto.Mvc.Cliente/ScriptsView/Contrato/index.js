@@ -559,16 +559,35 @@ Page.InitDatos = (() => {
 });
 
 Page.FormToObj = (() => {
-    Page.data.palId = Page.ObjId.option('value');
-    Page.data.palEstado = Page.data.estado;
-    //CONTROLES DATOS--------------------------------------------------------------------       
-    Page.data.empId = Page.ddlDatosEmpresa.option("value");
-    Page.data.camId = Page.ddlDatosCampo.option("value");
-    Page.data.palFechaCreacion = new Date().toJSON();
-    Page.data.palFecha = Page.FormatDateString(Page.ddlDatosFecha.option("value"));
-
-    if ([`R`, `X`].includes(Page.data.estado)) Page.data.palComentario = Page.ddlDatosComentarioRechazar.option("value");
-    else Page.data.palComentario = Page.ddlDatosComentario.option("value");
+    Page.data.Id = Page.ObjId.option('value');    
+    //CONTROLES DATOS--------------------------------------------
+    Page.data.CodigoContrato = Page.ddlDatosCodigoContrato.option("value");
+    Page.data.Materno = Page.ddlDatosMaterno.option("value");
+    Page.data.Paterno = Page.ddlDatosPaterno.option("value");
+    Page.data.Nombres = Page.ddlDatosNombre.option("value");
+    Page.data.Testimonio = Page.ddlDatosTestimonio.option("value");
+    Page.data.FechaInicial = General.formatDate(Page.ddlDatosFechaInicial.option("value"));
+    Page.data.FechaFinal = General.formatDate(Page.ddlDatosFechaFinal.option("value"));
+    Page.data.FechaTestimonio = General.formatDate(Page.ddlDatosTestimonio.option("value"));
+    Page.data.NumeroNotaria = Page.ddlDatosNumeroNotaria.option("value");
+    Page.data.PaternoProveedor = Page.ddlDatosPaternoProveedor.option("value");
+    Page.data.MaternoProveedor = Page.ddlDatosMaternoProveedor.option("value");
+    Page.data.NombresProveedor = Page.ddlDatosNombreProveedor.option("value");
+    Page.data.DocumentoProveedor = Page.ddlDatosDocumentoProveedor.option("value");
+    Page.data.Domicilio = Page.ddlDatosDomicilio.option("value");
+    Page.data.Direccion = Page.ddlDatosDireccion.option("value");
+    Page.data.Ciudad = Page.ddlDatosCiudad.option("value");
+    Page.data.Superficie = Page.ddlDatosSuperficie.option("value");
+    Page.data.NumeroDireccion = Page.ddlDatosNumeroDireccion.option("value");
+    Page.data.Importe = Page.ddlDatosImporte.option("value");
+    Page.data.Literal = Page.ddlDatosLiteral.option("value");
+    Page.data.Cuenta = Page.ddlDatosCuenta.option("value");
+    Page.data.NumeroMeses = Page.ddlDatosNumeroMeses.option(`value`);
+    Page.data.FechaInicialArrendamiento = General.formatDate(Page.ddlDatosFechaInicialArrendamiento.option(`value`));
+    Page.data.FechaFinalArrendamiento = General.formatDate(Page.ddlDatosFechaFinalArrendamiento.option(`value`));
+    Page.data.FechaTenor = General.formatDate(Page.ddlDatosFechaTenor.option(`value`));
+    Page.data.Mes = Page.ddlDatosMes.option(`value`);
+    Page.data.Anio = Page.ddlDatosAnio.option(`value`);
 });
 
 Page.ObjToForm = (() => {
@@ -737,7 +756,6 @@ Page.VerificarBotones = (tabActive => {
 });
 
 Page.GuardarRegistroPageFail = (() => {
-    Page.data.estado = Page.ddlDatosEstado.option(`value`);
 });
 
 /*****************************************************************************************************************************************/
