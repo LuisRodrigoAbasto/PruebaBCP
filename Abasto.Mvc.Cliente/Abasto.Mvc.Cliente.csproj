@@ -74,8 +74,24 @@
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -167,11 +183,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dx-diagram.css" />
     <Content Include="Content\dx-diagram.min.css" />
-    <Content Include="Content\dx.estilo.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Compile Include="Report\ReporteContrato.aspx" />
+    <Content Include="Report\ReporteContrato.aspx" />
     <Content Include="ScriptsView\Contrato\index.js" />
     <Content Include="ScriptsView\Home\index.js" />
     <Content Include="ScriptsView\Shared\General.js" />
@@ -182,24 +197,6 @@
     <Content Include="Scripts\cldr\event.js" />
     <Content Include="Scripts\cldr\supplemental.js" />
     <Content Include="Scripts\cldr\unresolved.js" />
-    <Content Include="Content\icons\dxiconsmaterial.woff2" />
-    <Content Include="Content\icons\dxiconsmaterial.woff" />
-    <Content Include="Content\icons\dxiconsmaterial.ttf" />
-    <Content Include="Content\icons\dxicons.woff2" />
-    <Content Include="Content\icons\dxicons.woff" />
-    <Content Include="Content\icons\dxicons.ttf" />
-    <Content Include="Content\fonts\Roboto-700.woff2" />
-    <Content Include="Content\fonts\Roboto-700.woff" />
-    <Content Include="Content\fonts\Roboto-700.ttf" />
-    <Content Include="Content\fonts\Roboto-500.woff2" />
-    <Content Include="Content\fonts\Roboto-500.woff" />
-    <Content Include="Content\fonts\Roboto-500.ttf" />
-    <Content Include="Content\fonts\Roboto-400.woff2" />
-    <Content Include="Content\fonts\Roboto-400.woff" />
-    <Content Include="Content\fonts\Roboto-400.ttf" />
-    <Content Include="Content\fonts\Roboto-300.woff2" />
-    <Content Include="Content\fonts\Roboto-300.woff" />
-    <Content Include="Content\fonts\Roboto-300.ttf" />
     <Content Include="Scripts\cldr\dates\es-BO\ca-generic.json" />
     <Content Include="Scripts\cldr\dates\es-BO\ca-gregorian.json" />
     <Content Include="Scripts\cldr\dates\es-BO\dateFields.json" />
@@ -239,6 +236,24 @@
     <Content Include="Scripts\cldr\supplemental\weekData.json" />
     <Content Include="Scripts\cldr\supplemental\windowsZones.json" />
     <EmbeddedResource Include="Report\Files\LRATContrato.rdlc" />
+    <Content Include="Content\icons\dxiconsmaterial.woff2" />
+    <Content Include="Content\icons\dxiconsmaterial.woff" />
+    <Content Include="Content\icons\dxiconsmaterial.ttf" />
+    <Content Include="Content\icons\dxicons.woff2" />
+    <Content Include="Content\icons\dxicons.woff" />
+    <Content Include="Content\icons\dxicons.ttf" />
+    <Content Include="Content\fonts\Roboto-700.woff2" />
+    <Content Include="Content\fonts\Roboto-700.woff" />
+    <Content Include="Content\fonts\Roboto-700.ttf" />
+    <Content Include="Content\fonts\Roboto-500.woff2" />
+    <Content Include="Content\fonts\Roboto-500.woff" />
+    <Content Include="Content\fonts\Roboto-500.ttf" />
+    <Content Include="Content\fonts\Roboto-400.woff2" />
+    <Content Include="Content\fonts\Roboto-400.woff" />
+    <Content Include="Content\fonts\Roboto-400.ttf" />
+    <Content Include="Content\fonts\Roboto-300.woff2" />
+    <Content Include="Content\fonts\Roboto-300.woff" />
+    <Content Include="Content\fonts\Roboto-300.ttf" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\devextreme-localization\dx.messages.de.js" />
     <Content Include="Scripts\devextreme-localization\dx.messages.en.js" />
