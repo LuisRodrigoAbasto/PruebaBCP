@@ -584,12 +584,12 @@
         $("#btnGuardar").hide();
         $("#btnCancelar").hide();
         $("#btnEliminar").hide();
+        $("#btnImprimir").hide();
 
         $("#btnNuevo").dxButton({
-            stylingMode: "contained",
             text: "Nuevo",
             type: "success",
-            //width: 120,
+            icon:"file",
             onClick: function () {
                 let tab = Page.GetTabActive();
                 if (tab == "tabDatosLi") {
@@ -598,10 +598,9 @@
             }
         });
         $("#btnGuardar").dxButton({
-            stylingMode: "contained",
             text: "Guardar",
             type: "success",
-            //width: 120,
+            icon:"save",
             onClick: function () {
                 let tab = Page.GetTabActive();
                 if (tab == "tabDatosLi") {
@@ -609,37 +608,47 @@
                 }
             }
         });
-        $("#btnCancelar").dxButton({
-            stylingMode: "contained",
-            text: "Cancelar",
-            type: "success",
-            //width: 120,
-            onClick: function () {
-                DevExpress.ui.dialog.confirm("¿Seguro que desea Cancelar?", "Cancelar").done((result) => {
-                    if (result) {
-                        let tab = Page.GetTabActive();
-                        if (tab == "tabDatosLi") {
-                            Page.CancelarRegistro();
-                        }
-                    }
-                });
-            }
-        });
+        //$("#btnCancelar").dxButton({
+        //    text: "Cancelar",
+        //    type: "success",
+        //    icon:"clear",
+        //    //width: 120,
+        //    onClick: function () {
+        //        DevExpress.ui.dialog.confirm("¿Seguro que desea Cancelar?", "Cancelar").done((result) => {
+        //            if (result) {
+        //                let tab = Page.GetTabActive();
+        //                if (tab == "tabDatosLi") {
+        //                    Page.CancelarRegistro();
+        //                }
+        //            }
+        //        });
+        //    }
+        //});
 
-        $("#btnEliminar").dxButton({
-            stylingMode: "contained",
-            text: "Eliminar",
+        //$("#btnEliminar").dxButton({
+        //    text: "Eliminar",
+        //    type: "success",
+        //    //width: 120,
+        //    icon:"trash",
+        //    onClick: function () {
+        //        DevExpress.ui.dialog.confirm("¿Seguro que desea Eliminar?", "Cancelar").done((result) => {
+        //            if (result) {
+        //                let tab = Page.GetTabActive();
+        //                if (tab == "tabDatosLi") {
+        //                    Page.CancelarRegistro();
+        //                }
+        //            }
+        //        });
+        //    }
+        //});
+
+        $("#btnImprimir").dxButton({
+            text: "Imprimir",
             type: "success",
-            //width: 120,
+            icon:'print',
             onClick: function () {
-                DevExpress.ui.dialog.confirm("¿Seguro que desea Cancelar?", "Cancelar").done((result) => {
-                    if (result) {
-                        let tab = Page.GetTabActive();
-                        if (tab == "tabDatosLi") {
-                            Page.CancelarRegistro();
-                        }
-                    }
-                });
+                if (Page.data.codigo) Page.AbrirFormularioUrl(`${General.UrlBase()}/Report/ReporteContrato.aspx?codigo=${Page.data.codigo}`);
+                else General.Notify("Seleccione un Registro por favor", "error");
             }
         });       
     }),
@@ -647,18 +656,18 @@
     InitBotonesPredeterminados: (() => {
         Page.InitBotonesCRUD();
         $("#btnBuscar").dxButton({
-            stylingMode: "contained",
             text: "Buscar",
             type: "success",
+            icon:"search",
             //width: 120,
             onClick: function () {
                 Page.Buscar();
             }
         });
         $("#btnLimpiar").dxButton({
-            stylingMode: "contained",
             text: "Limpiar",
             type: "success",
+            icon: "clear",
             //width: 120,
             onClick: function () {
                 Page.LimpiarControlesBusqueda();
@@ -697,6 +706,7 @@
                         if ($("#btnCancelar").length) $("#btnCancelar").show();
                         if (![`0`].includes(codigo)) {
                             if ($("#btnEliminar").length) $("#btnEliminar").show();
+                            if ($("#btnImprimir").length) $("#btnImprimir").show();
                         }                                                                                    
                 }
             }

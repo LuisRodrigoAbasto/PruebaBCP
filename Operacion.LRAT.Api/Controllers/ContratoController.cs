@@ -1,4 +1,5 @@
 ﻿using Abasto.Libreria.DevExtreme;
+using Abasto.Libreria.General;
 using Abasto.Negocio;
 using System;
 using System.Collections.Generic;
@@ -59,6 +60,42 @@ namespace Operacion.LRAT.Api.Controllers
                 var obj = cn.BCPContrado.Where(x => x.Id == id).FirstOrDefault();
                 return ResponseOk(obj);
             }
+        }
+        [HttpPost]
+        public dynamic Post(BCPContrado obj)
+        {
+            ContratoReplaceAll(obj);
+            using (Negocio cn=new Negocio())
+            {
+                cn.BCPContrado.Add(obj);
+                cn.SaveChanges();
+            }
+            return ResponseOk(obj.Id);
+        }
+        [HttpPut]
+        public dynamic Put(BCPContrado obj)
+        {
+            ContratoReplaceAll(obj);
+            using (Negocio cn=new Negocio())
+            {
+                cn.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+                cn.SaveChanges();
+            }
+            return ResponseOk(obj.Id);
+        }
+        [NonAction]
+        private void ContratoReplaceAll(BCPContrado obj)
+        {
+            obj.CodigoContrato = obj.CodigoContrato.ReplaceAll("  ", " ");
+            obj.Domicilio = obj.Domicilio.ReplaceAll("  ", " ");
+            obj.Direccion = obj.Direccion.ReplaceAll("  ", " ");
+            obj.Ciudad = obj.Ciudad.ReplaceAll("  ", " ");
+            obj.Nombres = obj.Nombres.ReplaceAll("  ", " ");
+            obj.Paterno = obj.Paterno.ReplaceAll("  ", " ");
+            obj.Materno = obj.Materno.ReplaceAll("  ", " ");
+            obj.NombresProveedor = obj.NombresProveedor.ReplaceAll("  ", " ");
+            obj.PaternoProveedor = obj.PaternoProveedor.ReplaceAll("  ", " ");
+            obj.MaternoProveedor = obj.MaternoProveedor.ReplaceAll("  ", " ");
         }
     }
 }

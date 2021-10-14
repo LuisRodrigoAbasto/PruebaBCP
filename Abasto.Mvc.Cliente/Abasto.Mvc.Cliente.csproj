@@ -222,7 +222,6 @@
     <Content Include="Scripts\cldr\supplemental\unitPreferenceData.json" />
     <Content Include="Scripts\cldr\supplemental\weekData.json" />
     <Content Include="Scripts\cldr\supplemental\windowsZones.json" />
-    <EmbeddedResource Include="Report\Files\LRATContrato.rdlc" />
     <Content Include="Content\icons\dxiconsmaterial.woff2" />
     <Content Include="Content\icons\dxiconsmaterial.woff" />
     <Content Include="Content\icons\dxiconsmaterial.ttf" />
@@ -241,6 +240,7 @@
     <Content Include="Content\fonts\Roboto-300.woff2" />
     <Content Include="Content\fonts\Roboto-300.woff" />
     <Content Include="Content\fonts\Roboto-300.ttf" />
+    <EmbeddedResource Include="Report\Files\LRATContrato.rdlc" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\devextreme-localization\dx.messages.de.js" />
     <Content Include="Scripts\devextreme-localization\dx.messages.en.js" />
